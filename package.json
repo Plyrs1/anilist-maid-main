@@ -1,0 +1,27 @@
+{
+  "name": "anilist-maid-main",
+  "version": "1.0.0",
+  "description": "This is the main service doing background monitoring of user's profile.\r Because I can't find how to get instant notification from AniList, for now I will use polling to get latest notification from AniList\r By default, it'll get notification every 30 minutes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Plyrs1/anilist-maid-main.git"
+  },
+  "author": "Plyrs <me@plyrs.eu.org>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Plyrs1/anilist-maid-main/issues"
+  },
+  "homepage": "https://github.com/Plyrs1/anilist-maid-main#readme",
+  "dependencies": {
+    "cron-parser": "^4.4.0",
+    "limiter": "^2.1.0",
+    "mongoose": "^6.4.4",
+    "node-cron": "^3.0.0",
+    "node-fetch": "2.6.7",
+    "polka": "^0.5.2"
+  }
+}
