@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const notificationSchema = new mongoose.Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     required: true,
+    index: true,
     ref: 'User'
   },
   activityId: {
@@ -12,8 +13,8 @@ const notificationSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['LIKE', 'MESSAGE', 'REPLY'],
-    default: 'LIKE'
+    enum: ['ACTIVITY_MESSAGE', 'ACTIVITY_LIKE', 'ACTIVITY_MENTION','ACTIVITY_REPLY','ACTIVITY_REPLY_SUBSCRIBED','FOLLOWING'],
+    default: 'ACTIVITY_LIKE'
   },
   isRead: {
     type: Boolean,

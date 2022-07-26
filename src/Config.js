@@ -3,7 +3,7 @@ const defaultValue = [
     { name: "discordWebhook", value: "DISCORD_WEBHOOK_HERE"}
   ]
   
-  class ConfigHelper {
+  class Config {
     constructor(config) {
       this.config = config
     }
@@ -35,4 +35,4 @@ const defaultValue = [
     }
   }
   
-  module.exports = { ConfigHelper }
+  module.exports = { Config }

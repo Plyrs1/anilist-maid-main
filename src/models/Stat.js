@@ -2,11 +2,17 @@ const mongoose = require('mongoose');
 
 const statSchema = new mongoose.Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     required: true,
+    index: true,
+    unique: true,
     ref: 'User'
   },
-  // like from user -> me
+  // like from me -> user
+  lastLikeSent: {
+    type: Date,
+    default: Date.now()
+  },
   likeSentToday: {
     type: Number,
     default: 0
@@ -19,7 +25,11 @@ const statSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  // like from me -> user
+  // like from user -> me
+  lastReceivedLike: {
+    type: Date,
+    default: Date.now()
+  },
   likeReceivedToday: {
     type: Number,
     default: 0
