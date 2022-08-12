@@ -1,11 +1,13 @@
+const ConfigModel = require('./models/Config.js')
+
 const defaultValue = [
     { name: "anilistKey", value: "INSERT_ANILIST_KEY_HERE"},
     { name: "discordWebhook", value: "DISCORD_WEBHOOK_HERE"}
   ]
   
   class Config {
-    constructor(config) {
-      this.config = config
+    constructor() {
+      this.config = ConfigModel
     }
     async _default(name){
       console.log(`[-] get content3 : ${name}`)

@@ -75,8 +75,8 @@ class Anilist {
 
   /**
    * Fetch notifications from api
-   * @param {number} count - fetch notification this much from the api
-   * @param {number} page - get page, only used in recursive call
+   * @param {number} count fetch notification this much from the api
+   * @param {number} page get page, only used in recursive call
    * @returns {Array}
    */
   async getNotifications(count = 50, page = 1){

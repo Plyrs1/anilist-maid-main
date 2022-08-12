@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Plyrs1/anilist-maid-main#readme",
   "dependencies": {
+    "canvas": "^2.9.3",
     "cron-parser": "^4.4.0",
     "dotenv": "^16.0.1",
     "limiter": "^2.1.0",
@@ -24,6 +25,7 @@
     "node-cron": "^3.0.0",
     "node-fetch": "2.6.7",
     "polka": "^0.5.2",
+    "serve-static": "^1.15.0",
     "uuid": "^8.3.2"
   }
 }
