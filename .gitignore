@@ -30,3 +30,6 @@ node_modules/
 
 # vscode dir
 .vscode/
+
+# banner generator testing 
+src/static/gen/
