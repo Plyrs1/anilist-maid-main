@@ -17,7 +17,7 @@ const msToDay = (ms) => {
 }
 
 const cronParse = (cron) => {
-  return cronParser.parseExpression(cron).next();
+  return cronParser.parseExpression(cron).next().getTime();
 }
 
 const cronToHumanTime = (crons) => {
