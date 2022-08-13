@@ -2,6 +2,7 @@ const Canvas = require('canvas');
 const fs = require('fs');
 Canvas.registerFont('./src/static/font/JosefinSans-Regular.ttf', { family: 'JosefinSans' });
 const Stat = require('./models/Stat.js')
+const { config } = require('../config.js')
 
 const calcImageScale = (image, targetWidth, targetHeight) => {
   let tmpWidth = targetWidth
@@ -51,29 +52,21 @@ const generateBanner = async (data, type) => {
     return false
   }
   var timeSpan
+  var cronTimeSpan
   if(type === 'day') {
     timeSpan = 'likeReceivedToday'
+    cronTimeSpan = 'getDailyRank'
   } else if(type === 'week') {
     timeSpan = 'likeReceivedWeek'
+    cronTimeSpan = 'getWeeklyRank'
   } else if(type === 'month') {
     timeSpan = 'likeReceivedMonth'
+    cronTimeSpan = 'getMonthlyRank'
   } else{
-    console.log('[x] Unknown time type')
+    console.log(`[x] Unknown time type "${type}"`)
     return false
   }
-  // var imgUserFirst = await Canvas.loadImage('./static/image/user-1st.jpg')
-  // var imgUserSecond = await Canvas.loadImage('./static/image/user-2nd.jpg')
-  // var imgUserThird = await Canvas.loadImage('./static/image/user-3th.jpg')
-  // var imgUserFourth = await Canvas.loadImage('./static/image/user-4th.jpg')
-  // var imgUserFifth = await Canvas.loadImage('./static/image/user-5th.jpg')
-  // let winnerList = [
-  //   {name: "Winner 1 is my best friend", likes: 11111, image: imgUserFirst},
-  //   {name: "Winner 2 also my friend but has longer username", likes: 22222, image: imgUserSecond},
-  //   {name: "Winner 3", likes: 33333, image: imgUserThird},
-  //   {name: "Winner 4", likes: 44444, image: imgUserFourth},
-  //   {name: "Winner 5", likes: 55555, image: imgUserFifth},  
-  // ]
-  console.log(timeSpan)
+
   let winnerList = data.map(value => {return {
     name: value.user.name,
     likes: value[timeSpan],
@@ -108,7 +101,7 @@ const generateBanner = async (data, type) => {
     ctx.fillText(`${element.likes} likes`, 1100, 460 + (200 * i));
   }
 
-  const time = new Date()
+  const time = new Date(config.cronSchedule[cronTimeSpan])
   const today = time.toUTCString()
   ctx.font = `${getBestFontSize(today, 600, 60)}pt JosefinSans`;
   ctx.fillText(`${today}`, 38, 1165);

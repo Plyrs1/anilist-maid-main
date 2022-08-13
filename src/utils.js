@@ -17,7 +17,16 @@ const msToDay = (ms) => {
 }
 
 const cronParse = (cron) => {
-  const interval = cronParser.parseExpression(cron).next();
-  return msToDay(interval.getTime() - Date.now())
+  return cronParser.parseExpression(cron).next();
 }
-  module.exports = { msToDay, cronParse}
+
+const cronToHumanTime = (crons) => {
+  return Object.keys(crons).reduce((obj, i) => {obj[i] = msToDay(cronParse(crons[i]) - Date.now()); return obj},{})
+
+}
+
+const cronToEpoch = (crons) => {
+  return Object.keys(crons).reduce((obj, i) => {obj[i] = cronParse(crons[i]); return obj},{})
+}
+
+module.exports = { msToDay, cronParse, cronToHumanTime, cronToEpoch }

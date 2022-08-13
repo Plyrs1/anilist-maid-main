@@ -1,14 +1,14 @@
 const Notification = require('./models/Notification.js')
 const Stat = require('./models/Stat.js')
-const { Config } = require('./Config.js')
-const config = new Config()
+const { setConfig } = require('./Config.js')
+
 /**
  * Count likes and messages activity today, and mark them so won't be counted twice
  * @returns {Boolean} - True if success, otherwise error
  */
 const reportDaily = async () => {
   console.log('[-] Running daily report...')
-  config.set('lastRunDailyReport', Date.now())
+  setConfig('lastRunDailyReport', Date.now())
   const unreadNotifications = await Notification.find({isRead: false, type: 'ACTIVITY_LIKE'})
   if(unreadNotifications.length === 0) {
     console.log('    No new notifications')
@@ -84,7 +84,7 @@ const reportDaily = async () => {
  */
 const reportWeekly = async () => {
   console.log('[-] Running weekly report...')
-  config.set('lastRunWeeklyReport', Date.now())
+  setConfig('lastRunWeeklyReport', Date.now())
   const stats = await Stat.find({likeReceivedToday: {$gt: 0}})
   if(stats.length === 0) {
     console.log('    Nothing to update')
@@ -121,7 +121,7 @@ const reportWeekly = async () => {
  */
 const reportMonthly = async () => {
   console.log('[-] Running monthly report...')
-  config.set('lastRunMonthlyReport', Date.now())
+  setConfig('lastRunMonthlyReport', Date.now())
   const stats = await Stat.find({likeReceivedWeek: {$gt: 0}})
   if(stats.length === 0) {
     console.log('    Nothing to update')
