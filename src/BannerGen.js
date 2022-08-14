@@ -3,6 +3,7 @@ const fs = require('fs');
 Canvas.registerFont('./src/static/font/JosefinSans-Regular.ttf', { family: 'JosefinSans' });
 const Stat = require('./models/Stat.js')
 const { config } = require('../config.js')
+const { cronParse } = require('./utils.js')
 
 const calcImageScale = (image, targetWidth, targetHeight) => {
   let tmpWidth = targetWidth
@@ -73,7 +74,7 @@ const generateBanner = async (data, type) => {
     image: value.user.avatar
   }})
   var c = Canvas.createCanvas(500, 1200)
-  var img = await Canvas.loadImage('./src/static/image/leaderboard-bg.png')
+  var img = await Canvas.loadImage(`./src/static/image/leaderboard-bg-${type}.png`)
   var imgFirst = await Canvas.loadImage('./src/static/image/1st.png')
   var imgSecond = await Canvas.loadImage('./src/static/image/2nd.png')
   var imgThird = await Canvas.loadImage('./src/static/image/3rd.png')
@@ -101,7 +102,7 @@ const generateBanner = async (data, type) => {
     ctx.fillText(`${element.likes} likes`, 1100, 460 + (200 * i));
   }
 
-  const time = new Date(config.cronSchedule[cronTimeSpan])
+  const time = new Date(cronParse(config.cronSchedule[cronTimeSpan]))
   const today = time.toUTCString()
   ctx.font = `${getBestFontSize(today, 600, 60)}pt JosefinSans`;
   ctx.fillText(`${today}`, 38, 1165);

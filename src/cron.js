@@ -28,19 +28,18 @@ const runCron = (anilist) => {
   cron.schedule(config.cronSchedule.dailyReport, async () => {
     await reportDaily()
   })
-  cron.schedule(config.cronSchedule.getDailyRank, async () => {
-    await getDailyRank()
-  })
   cron.schedule(config.cronSchedule.weeklyReport, async () => {
     await reportWeekly()
-  })
-  cron.schedule(config.cronSchedule.getWeeklyRank, async () => {
-    await getWeeklyRank()
   })
   cron.schedule(config.cronSchedule.monthlyReport, async () => {
     await reportMonthly()
   })
-  cron.schedule(config.cronSchedule.getMonthlyRank, async () => {
+  cron.schedule(config.cronSchedule.generateBanner, async () => {
+    console.log('[+] Generating daily rank...')
+    await getDailyRank()
+    console.log('[+] Generating weekly rank...')
+    await getWeeklyRank()
+    console.log('[+] Generating monthly rank...')
     await getMonthlyRank()
   })
 }

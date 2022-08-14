@@ -18,6 +18,7 @@
 // }
 const cronSchedule = {
   getUpdate: '10 * * * *',      // every hour at minute 10
+  generateBanner: '15 * * * *', // every hour at minute 15
   dailyReport: '13 0 * * *',    // every day at 0:13
   getDailyRank: '15 0 * * *',   // every day at 0:15
   weeklyReport: '17 0 * * 1',   // every monday at 0:17
