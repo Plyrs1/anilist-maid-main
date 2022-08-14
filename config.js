@@ -6,26 +6,27 @@
 // }
 
 
-// const startMin = 24
+// const startMin = 44
 // const cronSchedule = {
 //   getUpdate:      `${startMin} * * * *`,
 //   dailyReport:    `${startMin+1} * * * *`,
-//   getDailyRank:   `${startMin+2} * * * *`,
-//   weeklyReport:   `${startMin+3} * * * *`,
-//   getWeeklyRank:  `${startMin+4} * * * *`,
-//   monthlyReport:  `${startMin+5} * * * *`,
-//   getMonthlyRank: `${startMin+6} * * * *`
+//   // getDailyRank:   `${startMin+2} * * * *`,
+//   weeklyReport:   `${startMin+2} * * * *`,
+//   // getWeeklyRank:  `${startMin+4} * * * *`,
+//   monthlyReport:  `${startMin+3} * * * *`,
+//   // getMonthlyRank: `${startMin+6} * * * *`,
+//   // generateBanner: `${startMin+7} * * * *`,
 // }
 const cronSchedule = {
   getUpdate: '10 * * * *',      // every hour at minute 10
-  generateBanner: '15 * * * *', // every hour at minute 15
+  // generateBanner: '15 * * * *', // every hour at minute 15
   dailyReport: '13 0 * * *',    // every day at 0:13
-  getDailyRank: '15 0 * * *',   // every day at 0:15
+  // getDailyRank: '15 0 * * *',   // every day at 0:15
   weeklyReport: '17 0 * * 1',   // every monday at 0:17
-  getWeeklyRank: '19 0 * * 1',  // every monday at 0:19
+  // getWeeklyRank: '19 0 * * 1',  // every monday at 0:19
   // for now we just run this weekly to debug
   monthlyReport: '21 0 * * 1',  // every monday at 0:21
-  getMonthlyRank: '23 0 * * 1'  // every monday at 0:23
+  // getMonthlyRank: '23 0 * * 1'  // every monday at 0:23
 }
 const config = { cronSchedule }
 module.exports = { config }

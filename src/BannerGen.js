@@ -102,7 +102,8 @@ const generateBanner = async (data, type) => {
     ctx.fillText(`${element.likes} likes`, 1100, 460 + (200 * i));
   }
 
-  const time = new Date(cronParse(config.cronSchedule[cronTimeSpan]))
+  // const time = new Date(cronParse(config.cronSchedule[cronTimeSpan]))
+  const time = new Date(cronParse(config.cronSchedule.dailyReport))
   const today = time.toUTCString()
   ctx.font = `${getBestFontSize(today, 600, 60)}pt JosefinSans`;
   ctx.fillText(`${today}`, 38, 1165);
