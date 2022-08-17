@@ -70,7 +70,7 @@ const generateBanner = async (data, type) => {
 
   let winnerList = data.map(value => {return {
     name: value.user.name,
-    likes: value[timeSpan],
+    likes: value.likes,
     image: value.user.avatar
   }})
   var c = Canvas.createCanvas(500, 1200)
@@ -113,7 +113,11 @@ const generateBanner = async (data, type) => {
 const getDailyRank = async () => {
   const stats = await Stat.aggregate([
     { $match: {likeReceivedToday: {$gt: 0}}},
-    { $sort: { likeReceivedToday: -1, likeReceivedMonth: -1, likeReceivedWeek: -1 } },
+    { $project : {
+      userId: 1,
+      likes: '$likeReceivedToday'
+    }},
+    { $sort: { likes: -1 } },
     { $limit: 5 },
     { $lookup: {
         from: 'users',
@@ -130,8 +134,19 @@ const getDailyRank = async () => {
 
 const getWeeklyRank = async () => {
   const stats = await Stat.aggregate([
-    { $match: {likeReceivedWeek: {$gt: 0}}},
-    { $sort: { likeReceivedWeek: -1, likeReceivedMonth: -1, likeReceivedToday: -1 } },
+    { $match: {
+      $or: [
+            {likeReceivedWeek: {$gt: 0}},
+            {likeReceivedToday: {$gt: 0}}
+          ]
+    }},
+    { $project : {
+      userId: 1,
+      likes: {
+        $sum: ['$likeReceivedToday', '$likeReceivedWeek']
+      }
+    }},
+    { $sort: { likes: -1 } },
     { $limit: 5 },
     { $lookup: {
         from: 'users',
@@ -146,11 +161,22 @@ const getWeeklyRank = async () => {
   return stats
 }
 
-
 const getMonthlyRank = async () => {
   const stats = await Stat.aggregate([
-    { $match: {likeReceivedMonth: {$gt: 0}}},
-    { $sort: { likeReceivedMonth: -1, likeReceivedWeek: -1, likeReceivedToday: -1 } },
+    { $match: {
+      $or: [
+            {likeReceivedWeek: {$gt: 0}},
+            {likeReceivedToday: {$gt: 0}},
+            {likeReceivedMonth: {$gt: 0}}
+          ]
+    }},
+    { $project : {
+      userId: 1,
+      likes: {
+        $sum: ['$likeReceivedToday', '$likeReceivedWeek', '$likeReceivedMonth']
+      }
+    }},
+    { $sort: { likes: -1 } },
     { $limit: 5 },
     { $lookup : {
         from: 'users',

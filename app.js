@@ -1,11 +1,12 @@
 require('dotenv').config()
 
+const { config } = require('./config.js')
 /** load db for later use */
 const { connect } = require('./src/db.js')
-connect(process.env['MONGO_URI'])
+connect(config.mongoUri)
 
 const { Anilist } = require('./src/Anilist.js')
-const anilist = new Anilist(process.env['ANILIST_TOKEN'])
+const anilist = new Anilist(config.anilistToken)
 anilist.resetNotificationCount = false
 
 const { runCron } = require('./src/cron.js')

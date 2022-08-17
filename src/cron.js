@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const { config } = require('../config.js')
-const { reportDaily, reportWeekly, reportMonthly } = require('./Report.js')
+const { reportLikeCount, reportClearDaily, reportClearWeekly, reportClearMonthly } = require('./Report.js')
 const { getDailyRank, getWeeklyRank, getMonthlyRank } = require('./BannerGen.js')
 
 const runCron = (anilist) => {
@@ -12,7 +12,7 @@ const runCron = (anilist) => {
         console.log(`[+] You have ${anilist.unreadNotificationCount} unread notifications.`)
         console.log('    Getting notifications...')
         const notifs = await anilist.getNotifications(anilist.unreadNotificationCount)
-        console.log(notifs)
+        // console.log(notifs)
         console.log('    Done')
         const a = await anilist.saveNotifications(notifs)
         if (a) console.log('[+] Saving success')
@@ -25,8 +25,8 @@ const runCron = (anilist) => {
     }
   });
 
-  cron.schedule(config.cronSchedule.dailyReport, async () => {
-    await reportDaily()
+  cron.schedule(config.cronSchedule.reportLikeCount, async () => {
+    await reportLikeCount()
     console.log('[+] Generating daily rank...')
     await getDailyRank()
     console.log('[+] Generating weekly rank...')
@@ -35,12 +35,16 @@ const runCron = (anilist) => {
     await getMonthlyRank()
   })
 
-  cron.schedule(config.cronSchedule.weeklyReport, async () => {
-    await reportWeekly()
+  cron.schedule(config.cronSchedule.reportClearDaily, async () => {
+    await reportClearDaily()
   })
-  
-  cron.schedule(config.cronSchedule.monthlyReport, async () => {
-    await reportMonthly()
+
+  cron.schedule(config.cronSchedule.reportClearWeekly, async () => {
+    await reportClearWeekly()
+  })
+
+  cron.schedule(config.cronSchedule.reportClearMonthly, async () => {
+    await reportClearMonthly()
   })
 }
 

@@ -15,7 +15,7 @@ const connect = (url) => {
   db = mongoose.connect(url);
   return db
 }
-// const url = process.env['MONGO_URI'] || null;
+
 const User = require('./models/User.js');
 const Notification = require('./models/Notification.js');
 const Stat = require('./models/Stat.js')
