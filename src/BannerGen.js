@@ -103,7 +103,7 @@ const generateBanner = async (data, type) => {
   }
 
   // const time = new Date(cronParse(config.cronSchedule[cronTimeSpan]))
-  const time = new Date(cronParse(config.cronSchedule.dailyReport))
+  const time = new Date(cronParse(config.cronSchedule.reportLikeCount))
   const today = time.toUTCString()
   ctx.font = `${getBestFontSize(today, 600, 60)}pt JosefinSans`;
   ctx.fillText(`${today}`, 38, 1165);
