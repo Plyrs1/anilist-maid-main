@@ -33,3 +33,4 @@ node_modules/
 
 # banner generator testing 
 src/static/gen/
+src/static/leaderboard-*.png

@@ -4,6 +4,7 @@
   "description": "This is the main service doing background monitoring of user's profile.\r Because I can't find how to get instant notification from AniList, for now I will use polling to get latest notification from AniList\r By default, it'll get notification every 30 minutes",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,5 +28,8 @@
     "polka": "^0.5.2",
     "serve-static": "^1.15.0",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.22.0"
   }
 }
